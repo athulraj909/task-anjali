@@ -1,8 +1,16 @@
 from django import forms
-from .models import user
+from .models import CustomUser, user
 
-
-class StudentForm(forms.ModelForm):
+class CustomUserForm(forms.ModelForm):
     class Meta:
-        model = user 
+        model = CustomUser
+        fields = ['username', 'password', 'email', 'is_admin', 'is_banker', 'is_customeruser']  
+        widgets = {
+            'password': forms.PasswordInput(), 
+        }
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = user
         fields = "__all__"
+        exclude = ['user_id'] 
